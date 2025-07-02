@@ -100,6 +100,8 @@ cd ui
 - FastAPI backend with database integration
 
 ### 🔮 Future Roadmap
+- **Cloud Database Integration**: Add support for a cloud database such as Supabase for scalable, cross-device data storage
+- **Automatic Backend Hosting**: Host the backend API in the cloud or automate its startup, so the app works without manual server setup
 - **Transaction Analysis**: Integrate with banking APIs to analyze spending patterns
 - **Smart Notifications**: AI-driven notifications based on actual spending behavior
 - **Advanced Scheduling**: Context-aware notification timing
