@@ -137,10 +137,6 @@ This is currently an MVP project. Contributions and feedback are welcome!
 3. Make your changes
 4. Submit a pull request
 
-## 📜 License
-
-[Add your preferred license here]
-
 ## 🔗 Contact
 
 **Email**: 
