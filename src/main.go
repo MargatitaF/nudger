@@ -14,7 +14,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-
+	
 	// Example usage of an environment variable
 	environment := os.Getenv("ENVIRONMENT")
 	version := os.Getenv("VERSION")
