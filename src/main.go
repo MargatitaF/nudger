@@ -14,7 +14,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-	
+
 	// Example usage of an environment variable
 	environment := os.Getenv("ENVIRONMENT")
 	version := os.Getenv("VERSION")
@@ -28,4 +28,5 @@ func main() {
 
 	if DB_USER == "" || DB_PASSWORD == "" || DB_HOST == "" || DB_PORT == "" || DB_NAME == "" {
 		log.Fatal("Database environment variables are not set")
+	}
 }
