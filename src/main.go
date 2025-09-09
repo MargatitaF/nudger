@@ -2,31 +2,33 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-
-	"github.com/joho/godotenv"
+	"net/http"
 )
 
+type Mood struct {
+	Mood   string
+	Prompt string
+}
+
 func main() {
-	// Load environment variables from .env file
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env file")
+
+	// Initialize moods
+	moods := []Mood{
+		{"caring", "Test prompt 1."},
+		{"neutral", "Test prompt 2."},
 	}
 
-	// Example usage of an environment variable
-	environment := os.Getenv("ENVIRONMENT")
-	version := os.Getenv("VERSION")
-	fmt.Printf("Environment: %s, Version: %s\n", environment, version)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Hello, World!")
+	})
 
-	DB_USER := os.Getenv("DB_USER")
-	DB_PASSWORD := os.Getenv("DB_PASSWORD")
-	DB_HOST := os.Getenv("DB_HOST")
-	DB_PORT := os.Getenv("DB_PORT")
-	DB_NAME := os.Getenv("DB_NAME")
-
-	if DB_USER == "" || DB_PASSWORD == "" || DB_HOST == "" || DB_PORT == "" || DB_NAME == "" {
-		log.Fatal("Database environment variables are not set")
+	/* Endpoint to list moods */
+	http.HandleFunc("/moods", func(w http.ResponseWriter, r *http.Request) {
+		for _, mood := range moods {
+			fmt.Printf("Mood: %s, Prompt: %s\n", mood.Mood, mood.Prompt)
+		}
+	})
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		fmt.Println("Server error:", err)
 	}
 }
