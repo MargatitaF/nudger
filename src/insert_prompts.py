@@ -2,7 +2,7 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.db import Tones, ToneEnum, TonePrompts, Base
+from db import Tones, ToneEnum, TonePrompts, Base
 
 
 DB_USER = os.getenv("POSTGRES_USER", "postgres")

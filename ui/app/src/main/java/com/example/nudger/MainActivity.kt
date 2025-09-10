@@ -64,6 +64,7 @@ import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.ui.draw.clip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun Logo(modifier: Modifier = Modifier) {
@@ -191,7 +192,7 @@ fun Main(navController: NavHostController, mainActivity: MainActivity) {
 
 class MainActivity : ComponentActivity() {
     private var fcmToken: String = ""
-    private val apiService = ApiService(this)
+    private lateinit var apiService: ApiService
     
     private fun getAndSendFCMToken() {
         Firebase.messaging.token.addOnCompleteListener { task ->
@@ -217,7 +218,6 @@ class MainActivity : ComponentActivity() {
     }
 
     fun getFCMToken(): String = fcmToken
-    fun getApiService(): ApiService = apiService
 
     private fun requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -233,9 +233,11 @@ class MainActivity : ComponentActivity() {
                 )
             }        }
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        apiService = ApiService(this) // Initialize here
+
         enableEdgeToEdge()
         setContent {
             NudgerTheme {
@@ -250,6 +252,7 @@ class MainActivity : ComponentActivity() {
         requestNotificationPermission()
         getAndSendFCMToken()
     }
+    fun getApiService(): ApiService = apiService
 }
 
 

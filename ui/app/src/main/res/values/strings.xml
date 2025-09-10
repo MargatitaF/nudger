@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Nudger</string>
-    <string name="base_url">http://145.93.124.53:8000</string>
+    <string name="base_url">http://192.168.178.13:8000</string>
 </resources>

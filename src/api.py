@@ -12,7 +12,7 @@ from fastapi.responses import FileResponse
 from pyfcm import FCMNotification
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-
+from contextlib import asynccontextmanager
 from schema.models import NotificationRequest, SchedulingRequest, FrequencyType, TokenRegistrationRequest
 from utils.scheduler import initialize_scheduler
 from db import ScheduledNotification, Tones, TonePrompts, ToneEnum, TokenTonePreferences, Base
@@ -63,16 +63,14 @@ def get_db():
     finally:
         db.close()
 
-@app.on_event("startup")
-async def startup_event():
-    """Start the scheduler when the FastAPI app starts."""
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup code
     if not scheduler.running:
         scheduler.start()
         print("APScheduler started on app startup.")
-
-@app.on_event("shutdown") 
-async def shutdown_event():
-    """Shutdown the scheduler when the FastAPI app shuts down."""
+    yield
+    # Shutdown code
     if scheduler.running:
         scheduler.shutdown()
         print("APScheduler shut down.")
